@@ -13,11 +13,6 @@ class App extends React.Component {
           completed: true
         },
         {
-          task: 'Organize Garage',
-          id: 1528817077286,
-          completed: true
-        },
-        {
           task: 'Bake Cookies',
           id: 1528817084358,
           completed: false
@@ -33,8 +28,8 @@ class App extends React.Component {
     });
   };
 
-  addTask = (event) => {
-    event.preventDefault();
+  addTask = (e) => {
+    e.preventDefault();
     const newTask ={
       task: this.state.taskInput,
       id: Date.now(),
@@ -46,12 +41,32 @@ class App extends React.Component {
     }) 
   }
 
+  toggleComplete = (id) => {
+    this.setState(prevState => {
+      return {
+        tasks: prevState.tasks.map(task => {
+          if (task.id === id) {
+            return ({...task, completed: !task.completed});
+          } else {
+            return task;
+          }
+        })
+      }
+    })
+  }
+
+  clearComplete = (e) => {
+    this.setState(prevState => {
+      return {...prevState, tasks: prevState.tasks.filter(task => task.completed ===false)}
+    });
+  }
+
   render() {
     return (
       <div>
         <h2>Todo List</h2>
-        <TodoList tasks={this.state.tasks} />    
-        <TodoForm taskInput={this.state.taskInput} changeHandler={this.changeHandler} addTask={this.addTask} />     
+        <TodoList tasks={this.state.tasks} toggleComplete={this.toggleComplete} />    
+        <TodoForm taskInput={this.state.taskInput} clearComplete={this.clearComplete} changeHandler={this.changeHandler} addTask={this.addTask} />     
       </div>
     );
   }

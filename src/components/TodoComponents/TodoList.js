@@ -4,9 +4,8 @@ import React from 'react';
 import Todo from './Todo';
 
 function TodoList(props) {
-    return <div>{props.tasks.map((task) => < Todo task={task} />)}</div>;
+    return <div>{props.tasks.map((task) => <Todo task={task} key={task.id} toggleComplete={props.toggleComplete} />)}</div>;
 }
-
 export default TodoList;
 
 // - Your todo list should display a list of todos, an input field, a submit button, and a clear all button.
