@@ -1,11 +1,12 @@
 import React from 'react';
 
+
 function Todo(props) {
     return (
         <div
-            style={props.tasks.completed ? {textDecoration: 'line-through'} : null} 
+            className={`task${props.task.completed ? ' completed' : ''}`}
             onClick={() => props.toggleComplete(props.task.id)}>
-            <p >{props.task.task}</p>
+            <p>{props.task.task}</p>
         </div>
     )
 }
